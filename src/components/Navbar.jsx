@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { Menu, Phone } from 'lucide-react'
+import LanguageSwitcher from './LanguageSwitcher'
+import { useI18n } from '../i18n'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const { t } = useI18n()
 
   const navItems = [
-    { href: '#procedures', label: 'Procedures' },
-    { href: '#pricing', label: 'Pricing' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#procedures', label: t('nav.procedures') },
+    { href: '#pricing', label: t('nav.pricing') },
+    { href: '#contact', label: t('nav.contact') },
   ]
 
   return (
@@ -17,51 +20,35 @@ export default function Navbar() {
           <div className="flex items-center justify-between px-6 py-4">
             <a href="#top" className="group inline-flex items-center gap-2">
               <div className="h-9 w-9 rounded-full bg-gradient-to-br from-amber-200 to-emerald-200 ring-1 ring-emerald-900/10 shadow-inner" />
-              <span className="text-lg font-semibold tracking-wide text-emerald-900">MediSpa</span>
+              <span className="text-lg font-semibold tracking-wide text-emerald-900">{t('brand')}</span>
             </a>
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-6">
+              <a href="/services" className="text-emerald-900/80 hover:text-emerald-900 transition-colors text-sm">{t('nav.services')}</a>
+              <a href="/galleries" className="text-emerald-900/80 hover:text-emerald-900 transition-colors text-sm">{t('nav.galleries')}</a>
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="text-emerald-900/80 hover:text-emerald-900 transition-colors text-sm"
-                >
-                  {item.label}
-                </a>
+                <a key={item.href} href={item.href} className="text-emerald-900/80 hover:text-emerald-900 transition-colors text-sm">{item.label}</a>
               ))}
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-900 px-4 py-2 text-sm font-medium text-amber-50 shadow-md hover:shadow-lg hover:bg-emerald-800 transition"
-              >
-                <Phone size={16} /> Book Now
+              <LanguageSwitcher />
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-emerald-900 px-4 py-2 text-sm font-medium text-amber-50 shadow-md hover:shadow-lg hover:bg-emerald-800 transition">
+                <Phone size={16} /> {t('nav.bookNow')}
               </a>
             </nav>
-            <button
-              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-emerald-900/10 bg-white/80"
-              onClick={() => setOpen((v) => !v)}
-              aria-label="Toggle Menu"
-            >
+            <button className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-emerald-900/10 bg-white/80" onClick={() => setOpen((v) => !v)} aria-label="Toggle Menu">
               <Menu className="text-emerald-900" />
             </button>
           </div>
           {open && (
             <div className="md:hidden border-t border-emerald-900/10 px-6 py-4 space-y-3">
+              <a href="/services" className="block text-emerald-900/80 hover:text-emerald-900">{t('nav.services')}</a>
+              <a href="/galleries" className="block text-emerald-900/80 hover:text-emerald-900">{t('nav.galleries')}</a>
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block text-emerald-900/80 hover:text-emerald-900"
-                >
-                  {item.label}
-                </a>
+                <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="block text-emerald-900/80 hover:text-emerald-900">{item.label}</a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="mt-2 inline-flex items-center gap-2 rounded-full bg-emerald-900 px-4 py-2 text-sm font-medium text-amber-50 shadow-md"
-              >
-                <Phone size={16} /> Book Now
+              <div className="pt-2">
+                <LanguageSwitcher />
+              </div>
+              <a href="#contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center gap-2 rounded-full bg-emerald-900 px-4 py-2 text-sm font-medium text-amber-50 shadow-md">
+                <Phone size={16} /> {t('nav.bookNow')}
               </a>
             </div>
           )}

@@ -1,26 +1,19 @@
+import React from 'react'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Procedures from './components/Procedures'
-import Pricing from './components/Pricing'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Services from './components/Services'
 import { LanguageProvider } from './i18n'
 
-function App() {
+export default function ServicesPage() {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-amber-50/60 text-emerald-950">
         <Navbar />
         <main>
-          <Hero />
-          <Procedures />
-          <Pricing />
-          <Contact />
-          <Footer />
+          <Services />
         </main>
+        <Footer />
       </div>
     </LanguageProvider>
   )
 }
-
-export default App
